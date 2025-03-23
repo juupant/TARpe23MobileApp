@@ -21,7 +21,9 @@ namespace E_Commerce.Shared.Dtos
         public string Unit { get; set; }
 
         [ObservableProperty]
-        public int _cartQuantity;
+
+        public int _cartQuantity = Random.Shared.Next(0, 3);
+        //public int CartQuantity => Random.Shared.Next(0, 3);
         public short CategoryId { get; set; }
         public ProductDto(int id, string name, string? image, decimal price, string unit, short categoryId)
         {
