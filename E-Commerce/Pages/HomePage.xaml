@@ -68,6 +68,7 @@
 			</Style>
 		</ResourceDictionary>
 
+		
 	</ContentPage.Resources>
 	<ScrollView>
 		<Grid>
