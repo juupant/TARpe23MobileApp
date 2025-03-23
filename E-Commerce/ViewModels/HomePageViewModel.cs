@@ -11,9 +11,11 @@ namespace ViewModels
     public class HomePageViewModel : ObservableObject
     {
         private readonly CategoryService _categoryService;
-        public HomePageViewModel(CategoryService categoryService)
+        private readonly OffersService _offersService;
+        public HomePageViewModel(CategoryService categoryService, OffersService offersService)
         {
             _categoryService = categoryService;
+            _offersService = offersService;
         }
         public ObservableCollection<Category> Categories { get; set; } = new();
         public ObservableCollection<Offer> Offers { get; set; } = new();
@@ -24,7 +26,7 @@ namespace ViewModels
                 Categories.Add(cat);
             }
 
-            foreach (var off in Offer.GetOffers())
+            foreach (var off in await _offersService.GetActiveOffersAsync())
             {
                 Offers.Add(off);
             }
