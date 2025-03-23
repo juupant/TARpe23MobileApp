@@ -81,7 +81,7 @@
 	  <MauiXaml Update="Pages\BasketPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\CategoriesPage.xaml">
+	  <MauiXaml Update="Pages\Categories.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\HelpPage.xaml">
@@ -95,7 +95,6 @@
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
-	
 	  </MauiXaml>
 	</ItemGroup>
 

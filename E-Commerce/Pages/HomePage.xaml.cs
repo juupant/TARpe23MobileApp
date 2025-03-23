@@ -1,6 +1,6 @@
-﻿using ViewModels;
+using ViewModels;
 
-namespace E_Commerce.Pages;
+namespace Pages;
 
 public partial class HomePage : ContentPage
 {
