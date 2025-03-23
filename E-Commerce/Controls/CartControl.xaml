@@ -13,6 +13,9 @@
             Margin="5"
             StrokeThickness="0"
             x:Name="container">
+          <Border.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+        </Border.GestureRecognizers>
         <Border.Shadow>
             <Shadow Offset="1,1"
                     Brush="{StaticResource Primary}"

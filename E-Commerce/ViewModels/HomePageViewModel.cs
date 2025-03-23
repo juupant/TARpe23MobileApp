@@ -15,11 +15,13 @@ namespace ViewModels
         private readonly CategoryService _categoryService;
         private readonly OffersService _offersService;
         private readonly ProductsService _productsService;
-        public HomePageViewModel(CategoryService categoryService, OffersService offersService, ProductsService productsService)
+        private readonly CartViewModel _cartViewModel;
+        public HomePageViewModel(CategoryService categoryService, OffersService offersService, ProductsService productsService, CartViewModel cartViewModel)
         {
             _categoryService = categoryService;
             _offersService = offersService;
             _productsService = productsService;
+            _cartViewModel = cartViewModel;
 
         }
         public ObservableCollection<Category> Categories { get; set; } = new();
@@ -28,6 +30,8 @@ namespace ViewModels
 
         [ObservableProperty]
         private bool _isBusy = true;
+        [ObservableProperty]
+        private int _cartCount;
         public async Task InitalizeAsync()
         {
             try
@@ -61,6 +65,17 @@ namespace ViewModels
                 if (product != null)
                 {
                     product.CartQuantity += count;
+                    if (count == -1)
+
+
+                    {
+                        _cartViewModel.RemoveFromCartCommand.Execute(product.Id);
+                    }
+                    else
+                    {
+                        _cartViewModel.AddToCartCommand.Execute(product);
+                    }
+                    CartCount = _cartViewModel.Count;
                 }
             }
         }

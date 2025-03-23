@@ -50,6 +50,7 @@ namespace E_Commerce
             builder.Services.AddTransient<OffersService>();
             builder.Services.AddSingleton<CartViewModel>();
             builder.Services.AddTransient<OffersService>();
+            builder.Services.AddTransient<CartPage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

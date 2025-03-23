@@ -12,6 +12,21 @@ namespace ViewModels
         [ObservableProperty]
         private int _count;
 
+        [ObservableProperty]
+        private decimal _total;
+        private void RecalculateTotalAmount() => Total = CartItems.Sum(i => i.Amount);
+
+        [RelayCommand]
+        private void IncreaseCart(Guid id)
+        {
+            var item = CartItems.FirstOrDefault(x => x.Id == id);
+            if (item != null)
+            {
+                item.Quantity++;
+                RecalculateTotalAmount();
+            }
+        }
+
         [RelayCommand]
         private void AddToCart(ProductDto product)
         {
@@ -33,6 +48,7 @@ namespace ViewModels
                 CartItems.Add(item);
                 Count = CartItems.Count;
             }
+            RecalculateTotalAmount();
         }
         [RelayCommand]
         private void RemoveFromCart(int id)
@@ -50,11 +66,13 @@ namespace ViewModels
                     item.Quantity--;
                 }
             }
+            RecalculateTotalAmount();
         }
         private void ClearCart()
         {
             CartItems.Clear();
             Count = 0;
+            RecalculateTotalAmount();
         }
     }
 }
