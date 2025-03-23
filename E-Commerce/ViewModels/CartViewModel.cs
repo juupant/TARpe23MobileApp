@@ -8,6 +8,9 @@ namespace ViewModels
 {
     public partial class CartViewModel : ObservableObject
     {
+        public event EventHandler<int> CartCountUpdated;
+        public event EventHandler<CartItem> CartItemUpdated;
+        public event EventHandler<int> CartItemRemoved;
         public ObservableCollection<CartItem> CartItems { get; set; } = new();
         [ObservableProperty]
         private int _count;
@@ -23,6 +26,7 @@ namespace ViewModels
             if (item != null)
             {
                 item.Quantity++;
+                CartItemUpdated?.Invoke(this, item);
                 RecalculateTotalAmount();
             }
         }
@@ -34,6 +38,7 @@ namespace ViewModels
             if (item != null)
             {
                 item.Quantity++;
+                CartItemUpdated?.Invoke(this, item);
             }
             else
             {
@@ -47,7 +52,11 @@ namespace ViewModels
                 };
                 CartItems.Add(item);
                 Count = CartItems.Count;
+
+                CartItemUpdated?.Invoke(this, item);
+                CartCountUpdated?.Invoke(this, Count);
             }
+            CartItemUpdated?.Invoke(this, item);
             RecalculateTotalAmount();
         }
         [RelayCommand]
@@ -60,10 +69,13 @@ namespace ViewModels
                 {
                     CartItems.Remove(item);
                     Count = CartItems.Count;
+                    CartItemRemoved?.Invoke(this, id);
+                    CartCountUpdated?.Invoke(this, Count);
                 }
                 else
                 {
                     item.Quantity--;
+                    CartItemUpdated?.Invoke(this, item);
                 }
             }
             RecalculateTotalAmount();
