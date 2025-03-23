@@ -5,11 +5,43 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:E_Commerce"
     Shell.FlyoutBehavior="Disabled"
-    Title="E_Commerce">
+    Title="E_Commerce"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:Pages"
+    Shell.TabBarBackgroundColor="{StaticResource Tertiary}"
+    Shell.TabBarTitleColor="{StaticResource White}"
+    Shell.TabBarForegroundColor="{StaticResource White}"
+    Shell.BackgroundColor="{StaticResource Tertiary}">
 
-    <ShellContent
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}"/>
+    </Shell.Behaviors>
+    <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage" />-->
+    <TabBar>
+        <ShellContent Title="Home"
+                      Icon="bxs_home.png"
+                      ContentTemplate="{DataTemplate pages:HomePage}"
+                      Route="HomePage"/>
+        <ShellContent Title="Categories"
+                      Icon="bxs_category.png"
+                      ContentTemplate="{DataTemplate pages:Categories}"
+                      Route="CategoriesPage"/>
+        <ShellContent Title="Orders"
+                      Icon="bxs_list.png"
+                      ContentTemplate="{DataTemplate pages:OrdersPage}"
+                      Route="OrdersPage"/>
+        <ShellContent Title="Profile"
+                      Icon="bxs_user.png"
+                      ContentTemplate="{DataTemplate pages:ProfilePage}"
+                      Route="ProfilePage"/>
+        <ShellContent Title="Help"
+                      Icon="bxs_help.png"
+                      ContentTemplate="{DataTemplate pages:HelpPage}"
+                      Route="HelpPage"/>
+    </TabBar>
+
 
 </Shell>
