@@ -31,8 +31,12 @@ namespace ViewModels
         [ObservableProperty, NotifyPropertyChangedFor(nameof(PageTitle))]
         private Category _selectedCategory;
         public string PageTitle => $"{SelectedCategory?.Name ?? "Category"} Products";
-        public ObservableCollection<Category> Categories { get; set; } = new();
-        public ObservableCollection<ProductDto> Products { get; set; } = new();
+        [ObservableProperty]
+        public IEnumerable<Category> _categories = Enumerable.Empty<Category>();
+        [ObservableProperty]
+        public IEnumerable<ProductDto> _products = Enumerable.Empty<ProductDto>();
+        //public ObservableCollection<Category> Categories { get; set; } = new();
+        //public ObservableCollection<ProductDto> Products { get; set; } = new();
 
         [ObservableProperty]
         private bool _isBusy = true;
@@ -40,21 +44,23 @@ namespace ViewModels
         private int _cartCount;
         public async Task InitializeAsync()
         {
-            IsBusy = true;
+            await Task.Delay(100);
             try
             {
-                Categories.Clear();
-                foreach (var category in await _categoryService.GetSubCategories(SelectedCategory.Id))
-                {
-                    Categories.Add(category);
-                }
-                Products.Clear();
-                foreach (var product in await _productsService.GetCategoryProductsAsync(SelectedCategory.Id))
-                {
-                    Products.Add(product);
-                }
+                //Categories.Clear();
+                //foreach(var category in await _categoryService.GetSubCategories(SelectedCategory.Id))
+                //{
+                //    Categories.Add(category);
+                //}
+                //Products.Clear();
+                //foreach(var product in await _productsService.GetCategoryProductsAsync(SelectedCategory.Id))
+                //{
+                //    Products.Add(product);
+                //}
+                Categories = await _categoryService.GetSubCategories(SelectedCategory.Id);
+                Products = await _productsService.GetCategoryProductsAsync(SelectedCategory.Id);
             }
-            catch
+            finally
             {
                 IsBusy = false;
             }

@@ -8,8 +8,9 @@
              xmlns:dto="clr-namespace:E_Commerce.Shared.Dtos;assembly=E-Commerce.Shared"
              Title="{Binding PageTitle}"
              x:DataType="vm:CategoryProductsViewModel">
-    <Grid ColumnDefinitions="80,*">
-        <CollectionView Grid.Column="0"
+    <Grid>
+        <Grid ColumnDefinitions="80,*">
+            <CollectionView Grid.Column="0"
                         ItemsSource="{Binding Categories}"
                         BackgroundColor="{StaticResource Primary}">
             <CollectionView.ItemsLayout>
@@ -42,5 +43,21 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+            <ScrollView Grid.Column="1">
+                <controls:ProductsListControl Products="{Binding Products}"
+                              AddRemoveCartClicked ="ProductsListControl_AddRemoveCartClicked"
+                                             IsSmall="True"/>
+
+            </ScrollView>
+        </Grid>
+        <controls:CartControl Count="{Binding CartCount}"/>
+        <Grid IsVisible="{Binding IsBusy}">
+            <ActivityIndicator VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           HeightRequest="30"
+                           WidthRequest="30"
+                           IsRunning="True"
+                           Color="{StaticResource Tertiary}"/>
+        </Grid>
     </Grid>
 </ContentPage>

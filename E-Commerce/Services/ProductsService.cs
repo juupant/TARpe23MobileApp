@@ -16,7 +16,7 @@ namespace Services
         }
         public async Task<IEnumerable<ProductDto>> GetCategoryProductsAsync(short categoryId)
         {
-            var response = await HttpClient.GetAsync($"/categories/{categoryId}/products");
+            var response = await HttpClient.GetAsync($"/masters/categories/{categoryId}/products");
             return await HandleApiResponseAsync(response, Enumerable.Empty<ProductDto>());
         }
     }
