@@ -27,7 +27,7 @@
                       Route="HomePage"/>
         <ShellContent Title="Categories"
                       Icon="bxs_category.png"
-                      ContentTemplate="{DataTemplate pages:Categories}"
+                      ContentTemplate="{DataTemplate pages:CategoriesPage}"
                       Route="CategoriesPage"/>
         <ShellContent Title="Orders"
                       Icon="bxs_list.png"
