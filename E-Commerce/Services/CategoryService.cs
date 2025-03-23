@@ -28,6 +28,13 @@ namespace Services
             }
             return _categories;
         }
+        public async Task<IEnumerable<Category>> GetSubCategories(short subCategoryId)
+        {
+            var allCategories = await GetCategoriesAsync();
+            var currentCategory = allCategories.First(c => c.Id == subCategoryId);
+            var mainCategoryId = currentCategory.IsMainCategory ? subCategoryId : currentCategory.ParentId;
+            return allCategories.Where(c => c.ParentId == mainCategoryId).ToList();
+        }
         public async ValueTask<IEnumerable<Category>> GetMainCategoriesAsync() =>
             (await GetCategoriesAsync()).Where(c => c.ParentId == 0);
     }

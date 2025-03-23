@@ -7,7 +7,7 @@ namespace E_Commerce.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +48,10 @@ namespace E_Commerce.Api
                 var randomProducts = await context.Products.AsNoTracking().OrderBy(p => Guid.NewGuid())
                 .Take(count.Value).Select(Product.DtoSelector).ToArrayAsync();
                 return TypedResults.Ok(randomProducts);
+            });
+            mastersGroup.MapGet("/categories/{categoryId}/products", async (DataContext context, short categoryId) => {
+                var products = await context.Products.Include(p => p.Category).AsNoTracking().Where(p => p.CategoryId == categoryId || p.Category.ParentId == categoryId).Select(Product.DtoSelector).ToArrayAsync();
+                return TypedResults.Ok();
             });
             app.UseStaticFiles();
             app.Run("https://localhost:12345");

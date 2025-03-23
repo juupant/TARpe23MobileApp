@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using E_Commerce.Shared.Dtos;
 using Models;
+using Pages;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -107,6 +108,15 @@ namespace ViewModels
                 }
                 CartCount = _cartViewModel.Count;
             }
+        }
+        [RelayCommand]
+        private async Task GoToCategory(Category category)
+        {
+            var param = new Dictionary<string, object>()
+            {
+                [nameof(CategoryProductsViewModel.SelectedCategory)] = category
+            };
+            await Shell.Current.GoToAsync(nameof(CategoryProductsPage), animate: true, param);
         }
     }
 }

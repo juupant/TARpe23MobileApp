@@ -1,26 +1,19 @@
-using Models;
-using Services;
-using System.Collections.ObjectModel;
+using ViewModels;
 
 namespace Pages;
 
-public partial class CategoriesPage : ContentPage
+public partial class CategoryProductsPage : ContentPage
 {
-    private readonly CategoryService _categoryService;
-    public CategoriesPage(CategoryService categoryService)
+    private readonly CategoryProductsViewModel _viewModel;
+    public CategoryProductsPage(CategoryProductsViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = this;
-        _categoryService = categoryService;
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
     }
-    public ObservableCollection<Category> AllCategories { get; set; } = new();
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        AllCategories.Clear();
-        foreach (var category in await _categoryService.GetCategoriesAsync())
-        {
-            AllCategories.Add(category);
-        }
+        await _viewModel.InitializeAsync();
     }
 }

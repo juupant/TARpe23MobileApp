@@ -2,11 +2,45 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pages.CategoryProductsPage"
-             Title="CategoryProductsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:ViewModels"
+             xmlns:models="clr-namespace:Models"
+             xmlns:controls="clr-namespace:Controls"
+             xmlns:dto="clr-namespace:E_Commerce.Shared.Dtos;assembly=E-Commerce.Shared"
+             Title="{Binding PageTitle}"
+             x:DataType="vm:CategoryProductsViewModel">
+    <Grid ColumnDefinitions="80,*">
+        <CollectionView Grid.Column="0"
+                        ItemsSource="{Binding Categories}"
+                        BackgroundColor="{StaticResource Primary}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Category">
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         WidthRequest="80"
+                                         Padding="0,10,0,0">
+                        <Border StrokeShape="RoundRectangle 35"
+                                StrokeThickness="0"
+                                HeightRequest="70"
+                                WidthRequest="70">
+                            <Image Source="{Binding Image}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="70"
+                                   WidthRequest="70"/>
+
+                        </Border>
+                        <Label Text="{Binding Name}"
+                               TextColor="White"
+                               FontSize="12"
+                               LineBreakMode="WordWrap"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
