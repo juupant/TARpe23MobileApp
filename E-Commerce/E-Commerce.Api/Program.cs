@@ -34,7 +34,7 @@ namespace E_Commerce.Api
 
 
             app.MapControllers();
-
+            app.UseStaticFiles();
             app.Run();
         }
     }
