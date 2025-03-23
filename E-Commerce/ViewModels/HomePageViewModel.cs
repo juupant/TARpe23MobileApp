@@ -16,11 +16,17 @@ namespace ViewModels
             _categoryService = categoryService;
         }
         public ObservableCollection<Category> Categories { get; set; } = new();
+        public ObservableCollection<Offer> Offers { get; set; } = new();
         public async Task InitalizeAsync()
         {
             foreach (var cat in await _categoryService.GetMainCategoriesAsync())
             {
                 Categories.Add(cat);
+            }
+
+            foreach (var off in Offer.GetOffers())
+            {
+                Offers.Add(off);
             }
         }
     }
