@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ViewModels
 {
@@ -47,6 +48,20 @@ namespace ViewModels
             finally
             {
                 IsBusy = false;
+            }
+            [RelayCommand]
+            private void AddToCart(int productId) => UpdateCart(productId, 1);
+
+
+            [RelayCommand]
+            private void RemoveFromCart(int productId) => UpdateCart(productId, -1);
+            private void UpdateCart(int productId, int count)
+            {
+                var product = PopularProducts.FirstOrDefault(P => P.Id == productId);
+                if (product != null)
+                {
+                    product.CartQuantity += count;
+                }
             }
         }
     }
